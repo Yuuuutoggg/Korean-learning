@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>韓国語タイピング＆学習アプリ</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesomeの導入（オプション） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- 確認ダイアログ -->
+    <div id="confirmation-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <p>本当にタイトル画面に戻りますか？</p>
+            <button id="confirm-yes">はい</button>
+            <button id="confirm-no">いいえ</button>
+        </div>
+    </div>
+
+    <!-- モード選択画面 -->
+    <div id="mode-selection" class="screen fade-in">
+        <h1>韓国語タイピング＆学習アプリ</h1>
+        <button onclick="selectMode('practice')"><i class="fas fa-keyboard"></i> タイピング練習モード</button>
+        <button onclick="selectMode('learning')"><i class="fas fa-book"></i> 学習モード</button>
+         <!-- ダークモード切替ボタンを追加 -->
+    <button id="dark-mode-button" onclick="toggleDarkMode()" class="dark-mode-toggle">
+        <i class="fas fa-moon"></i> ダークモード
+    </button>
+    </div>
+
+    <!-- タイピング練習モードのサブモード選択画面 -->
+    <div id="practice-mode-selection" class="screen fade-in" style="display: none;">
+        <h2>タイピング練習モード</h2>
+        <button onclick="selectPracticeMode('timeattack')">タイムアタックモード</button>
+        <button onclick="selectPracticeMode('partofspeech')">品詞別モード</button>
+        <button onclick="confirmReturnToTitle()">戻る</button>
+    </div>
+
+    <!-- タイムアタックモードの韓国語キーボード警告画面 -->
+    <div id="korean-keyboard-warning" class="screen fade-in" style="display: none;">
+        <h2>韓国語キーボード警告</h2>
+        <p>タイムアタックモードを使用するには、韓国語キーボードを有効にしてください。</p>
+        <button onclick="acknowledgeKoreanKeyboard()">確認しました</button>
+    </div>
+
+    <!-- レベル選択画面（タイムアタックモード用） -->
+    <div id="level-selection" class="screen fade-in" style="display: none;">
+        <h2>レベルを選択してください</h2>
+        <button onclick="selectLevel('beginner')">初級</button>
+        <button onclick="selectLevel('intermediate')">中級</button>
+        <button onclick="selectLevel('advanced')">上級</button>
+        <button onclick="confirmReturnToTitle()">戻る</button>
+    </div>
+
+    <!-- 品詞選択画面 -->
+    <div id="part-of-speech-selection" class="screen fade-in" style="display: none;">
+        <h2>学びたい品詞を選んでください</h2>
+        <button onclick="selectPartOfSpeech('verbs')">動詞</button>
+        <button onclick="selectPartOfSpeech('adjectives')">形容詞</button>
+        <button onclick="selectPartOfSpeech('nouns')">名詞</button>
+        <button onclick="selectPartOfSpeech('adverbs')">副詞</button>
+        <button onclick="selectPartOfSpeech('conjunctions')">接続詞</button>
+        <button onclick="selectPartOfSpeech('particles')">助詞</button>
+        <button onclick="selectPartOfSpeech('pronouns')">代名詞</button>
+        <button onclick="selectPartOfSpeech('numerals', true)">数詞</button>
+        <button onclick="viewStudyingWords()"><i class="fas fa-list"></i> 勉強中の単語</button>
+        <button onclick="confirmReturnToTitle()"><i class="fas fa-home"></i> タイトルに戻る</button>
+    </div>
+
+    <!-- 難易度選択画面（品詞別モード用） -->
+    <div id="difficulty-selection" class="screen fade-in" style="display: none;">
+        <h2>難易度を選択してください</h2>
+        <button onclick="selectDifficulty('beginner')">初級</button>
+        <button onclick="selectDifficulty('intermediate')">中級</button>
+        <button onclick="selectDifficulty('advanced')">上級</button>
+        <button onclick="confirmReturnToTitle()">戻る</button>
+    </div>
+
+    <!-- タイピング練習画面 -->
+    <div id="typing-practice" class="screen fade-in" style="display: none;">
+        <h2>タイピング練習</h2>
+        <p id="timer" style="display: none;">残り時間: 60秒</p>
+        <p id="score">スコア: 0</p>
+        <p id="progress">単語 0 / 0</p>
+        <div id="word-display">
+            <p id="korean-word">ここに単語が表示されます</p>
+            <p id="japanese-translation">日本語訳: ここに訳が表示されます</p>
+        </div>
+        <input type="text" id="user-input" placeholder="韓国語を入力" autocomplete="off">
+        <button onclick="confirmReturnToTitle()"><i class="fas fa-home"></i> タイトルに戻る</button>
+    </div>
+
+    <!-- 学習モード画面 -->
+    <div id="learning-mode" class="screen fade-in" style="display: none;">
+        <h2>学習モード</h2>
+        <p id="learning-korean-word">韓国語: 가다</p>
+        <p id="learning-japanese-translation">日本語訳: 行く</p>
+        <p id="learning-example-korean">例文 (韓国語): 저는 학교에 갑니다。</p>
+        <p id="learning-example-japanese">例文訳 (日本語): 私は学校に行きます。</p>
+        <button onclick="addToStudyingList()"><i class="fas fa-plus-circle"></i> 勉強中</button>
+        <button onclick="nextLearningWord()"><i class="fas fa-arrow-right"></i> 次の単語</button>
+        <button onclick="endLearningMode()"><i class="fas fa-times-circle"></i> 終了</button>
+    </div>
+
+    <!-- 勉強中の単語確認画面 -->
+    <div id="studying-words" class="screen fade-in" style="display: none;">
+        <h2>勉強中の単語</h2>
+        <ul id="studying-list"></ul>
+        <button onclick="closeStudyingWords()"><i class="fas fa-times"></i> 閉じる</button>
+    </div>
+
+    <!-- スコア画面 -->
+    <div id="score-screen" class="screen fade-in" style="display: none;">
+        <h2>結果</h2>
+        <p id="final-score">あなたのスコアは 0 です。</p>
+        <button onclick="postToX()"><i class="fab fa-twitter"></i> 結果をXでポストする</button>
+        <button onclick="retryGame()"><i class="fas fa-redo"></i> リトライ</button>
+        <button onclick="goToLevelSelection()"><i class="fas fa-level-up-alt"></i> レベル選択</button>
+        <button onclick="confirmReturnToTitle()"><i class="fas fa-home"></i> タイトルに戻る</button>
+    </div>
+
+    <!-- JavaScriptファイルへのリンク -->
+    <script src="script.js"></script>
+</body>
+</html>

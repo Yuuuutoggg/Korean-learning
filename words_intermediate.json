@@ -1,0 +1,130 @@
+{
+  "intermediate": {
+    "verbs": [
+      {
+        "korean": "걷다",
+        "japanese": "歩く",
+        "example": {
+          "korean": "공원을 걷다.",
+          "japanese": "公園を歩く。"
+        }
+      },
+      {
+        "korean": "쓰다",
+        "japanese": "書く",
+        "example": {
+          "korean": "편지를 쓰다.",
+          "japanese": "手紙を書く。"
+        }
+      }
+    ],
+    "adjectives": [
+      {
+        "korean": "빠르다",
+        "japanese": "速い",
+        "example": {
+          "korean": "차가 빨라요.",
+          "japanese": "車が速いです。"
+        }
+      },
+      {
+        "korean": "느리다",
+        "japanese": "遅い",
+        "example": {
+          "korean": "기차가 느려요.",
+          "japanese": "電車が遅いです。"
+        }
+      }
+    ],
+    "nouns": [
+      {
+        "korean": "사랑",
+        "japanese": "愛",
+        "example": {
+          "korean": "사랑은 아름다워요.",
+          "japanese": "愛は美しいです。"
+        }
+      },
+      {
+        "korean": "기술",
+        "japanese": "技術",
+        "example": {
+          "korean": "기술 발전이 빠르게 진행되고 있어요.",
+          "japanese": "技術の進歩が速く進んでいます。"
+        }
+      }
+    ],
+    "adverbs": [
+      {
+        "korean": "매우",
+        "japanese": "非常に",
+        "example": {
+          "korean": "매우 아름답다.",
+          "japanese": "非常に美しいです。"
+        }
+      },
+      {
+        "korean": "조용히",
+        "japanese": "静かに",
+        "example": {
+          "korean": "조용히 해주세요.",
+          "japanese": "静かにしてください。"
+        }
+      }
+    ],
+    "conjunctions": [
+      {
+        "korean": "그러나",
+        "japanese": "しかし",
+        "example": {
+          "korean": "나는 노력했다. 그러나 결과는 좋지 않았다.",
+          "japanese": "私は努力した。しかし結果は良くなかった。"
+        }
+      },
+      {
+        "korean": "그러므로",
+        "japanese": "だから",
+        "example": {
+          "korean": "열심히 공부했다. 그러므로 시험에 합격했다.",
+          "japanese": "一生懸命勉強した。だから試験に合格した。"
+        }
+      }
+    ],
+    "particles": [
+      {
+        "korean": "이/가",
+        "japanese": "が",
+        "example": {
+          "korean": "저는 학생이 아니에요.",
+          "japanese": "私は学生ではありません。"
+        }
+      },
+      {
+        "korean": "도",
+        "japanese": "も",
+        "example": {
+          "korean": "나도 학생입니다.",
+          "japanese": "私も学生です。"
+        }
+      }
+    ],
+    "pronouns": [
+      {
+        "korean": "우리",
+        "japanese": "私たち",
+        "example": {
+          "korean": "우리는 친구입니다.",
+          "japanese": "私たちは友達です。"
+        }
+      },
+      {
+        "korean": "그녀",
+        "japanese": "彼女",
+        "example": {
+          "korean": "그녀는 나의 친구예요.",
+          "japanese": "彼女は私の友達です。"
+        }
+      }
+    ]
+  }
+}

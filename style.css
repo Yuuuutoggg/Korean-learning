@@ -1,0 +1,332 @@
+/* 全体のスタイル */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 20px; /* 全体のフォントサイズを大きく */
+    box-sizing: border-box;
+}
+
+/* スクリーン表示要素の基本スタイル */
+.screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0; /* 余白をなくす */
+    background: white;
+    text-align: center;
+}
+
+/* ボタンのスタイル */
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 16px 32px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* タイトル用のスタイル */
+h1, h2 {
+    margin-bottom: 10px;
+    font-size: 2em; /* タイトルのフォントサイズを小さくする */
+}
+
+/* タイピング練習用のスタイル */
+#typing-practice #korean-word {
+    font-size: 36px; /* 韓国語のフォントサイズを大きく */
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+#typing-practice #japanese-translation {
+    font-size: 24px; /* 日本語訳のフォントサイズを少し大きく */
+    margin: 10px 0;
+}
+
+#typing-practice input {
+    width: 80%;
+    max-width: 400px;
+    padding: 12px;
+    font-size: 20px;
+    margin-top: 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+/* 学習モード用のスタイル */
+#learning-mode p {
+    margin: 10px 0;
+    font-size: 22px;
+}
+
+/* 韓国語のテキストを大きく太字にする */
+#learning-mode #learning-korean-word,
+#learning-mode #learning-example-korean {
+    font-size: 28px; /* 大きくする */
+    font-weight: bold; /* 太字にする */
+    margin: 10px 0;
+}
+
+/* 勉強中の単語確認画面 */
+#studying-words {
+    padding: 15px;
+    max-height: 85vh;
+    overflow-y: auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+/* 勉強中の単語リスト */
+#studying-list {
+    width: 100%;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 各単語リスト項目 */
+#studying-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    max-width: 500px;
+    font-size: 22px;
+    padding: 10px 15px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* 各行のスタイル */
+#studying-list li span {
+    margin-bottom: 4px;
+    font-size: 22px;
+    text-align: center;
+}
+
+/* 削除ボタンのスタイル */
+#studying-list li button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #e53e3e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: center;
+}
+
+/* 削除ボタンのホバースタイル */
+#studying-list li button:hover {
+    background-color: #c53030;
+}
+
+/* ダークモード用のスタイル（勉強中の単語リスト） */
+body.dark-mode #studying-words {
+    background-color: #444;
+}
+
+body.dark-mode #studying-list li {
+    background-color: #555;
+    color: #f4f4f4;
+    border-bottom: 1px solid #666;
+}
+
+body.dark-mode #studying-list li button {
+    background-color: #e53e3e;
+    color: white;
+}
+
+body.dark-mode #studying-list li button:hover {
+    background-color: #c53030;
+}
+
+/* モーダルのスタイル */
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 1.2em;
+}
+
+body.dark-mode .modal-content {
+    background-color: #444444;
+    color: #f4f4f4;
+    border: 1px solid #555555;
+}
+
+/* ダークモード用スタイル */
+.dark-mode {
+    background-color: #333;
+    color: #f4f4f4;
+}
+
+.dark-mode .screen {
+    background-color: #444;
+    color: #f4f4f4;
+}
+
+.dark-mode button {
+    background-color: #888;
+    color: white;
+}
+
+.dark-mode button:hover {
+    background-color: #666;
+}
+
+.dark-mode .modal-content {
+    background-color: #444;
+    color: #f4f4f4;
+}
+
+/* アニメーション効果 */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* レスポンシブデザインの調整 */
+@media (max-width: 768px) {
+    body {
+        font-size: 22px;
+    }
+
+    button {
+        font-size: 22px;
+        padding: 18px 36px;
+    }
+
+    h1, h2 {
+        font-size: 2.2em;
+    }
+
+    #typing-practice #korean-word {
+        font-size: 34px;
+    }
+
+    #typing-practice input {
+        width: 95%;
+        padding: 16px;
+        font-size: 26px;
+    }
+
+    #learning-mode p {
+        font-size: 24px;
+    }
+
+    .studying-word p {
+        font-size: 1.6em;
+        padding: 16px;
+        margin-bottom: 10px;
+    }
+
+    .modal-content {
+        padding: 30px;
+        max-width: 500px;
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 24px;
+    }
+
+    button {
+        font-size: 24px;
+        padding: 18px 36px;
+    }
+
+    h1, h2 {
+        font-size: 2em;
+    }
+
+    #typing-practice #korean-word {
+        font-size: 36px;
+    }
+
+    #typing-practice input {
+        width: 95%;
+        padding: 18px;
+        font-size: 28px;
+    }
+
+    #learning-mode p {
+        font-size: 26px;
+    }
+
+    .studying-word p {
+        font-size: 1.8em;
+        padding: 18px;
+        margin-bottom: 10px;
+    }
+
+    .modal-content {
+        padding: 30px;
+        max-width: 450px;
+        font-size: 1.4em;
+    }
+}

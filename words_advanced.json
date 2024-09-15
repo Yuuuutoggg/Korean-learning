@@ -1,0 +1,130 @@
+{
+  "advanced": {
+    "verbs": [
+      {
+        "korean": "사랑하다",
+        "japanese": "愛する",
+        "example": {
+          "korean": "그는 그녀를 사랑한다.",
+          "japanese": "彼は彼女を愛している。"
+        }
+      },
+      {
+        "korean": "존경하다",
+        "japanese": "尊敬する",
+        "example": {
+          "korean": "선생님을 존경해요.",
+          "japanese": "先生を尊敬しています。"
+        }
+      }
+    ],
+    "adjectives": [
+      {
+        "korean": "아름답다",
+        "japanese": "美しい",
+        "example": {
+          "korean": "자연이 아름다워요.",
+          "japanese": "自然が美しいです。"
+        }
+      },
+      {
+        "korean": "강력하다",
+        "japanese": "強力だ",
+        "example": {
+          "korean": "그의 주장은 매우 강력해요.",
+          "japanese": "彼の主張は非常に強力です。"
+        }
+      }
+    ],
+    "nouns": [
+      {
+        "korean": "철학",
+        "japanese": "哲学",
+        "example": {
+          "korean": "철학은 인생의 근본을 탐구해요.",
+          "japanese": "哲学は人生の根本を探求します。"
+        }
+      },
+      {
+        "korean": "경제",
+        "japanese": "経済",
+        "example": {
+          "korean": "경제 상황이 안정되고 있어요.",
+          "japanese": "経済状況が安定してきています。"
+        }
+      }
+    ],
+    "adverbs": [
+      {
+        "korean": "심각하게",
+        "japanese": "深刻に",
+        "example": {
+          "korean": "그는 심각하게 생각해요.",
+          "japanese": "彼は深刻に考えています。"
+        }
+      },
+      {
+        "korean": "극도로",
+        "japanese": "極度に",
+        "example": {
+          "korean": "그 문제는 극도로 복잡해요.",
+          "japanese": "その問題は極度に複雑です。"
+        }
+      }
+    ],
+    "conjunctions": [
+      {
+        "korean": "따라서",
+        "japanese": "従って",
+        "example": {
+          "korean": "그는 열심히 일했다. 따라서 승진했다.",
+          "japanese": "彼は一生懸命働いた。従って昇進した。"
+        }
+      },
+      {
+        "korean": "즉",
+        "japanese": "すなわち",
+        "example": {
+          "korean": "그것은 불법이다. 즉, 하면 안 된다.",
+          "japanese": "それは違法です。すなわち、してはいけません。"
+        }
+      }
+    ],
+    "particles": [
+      {
+        "korean": "만",
+        "japanese": "だけ",
+        "example": {
+          "korean": "나만 알고 있어요.",
+          "japanese": "私だけが知っています。"
+        }
+      },
+      {
+        "korean": "까지",
+        "japanese": "まで",
+        "example": {
+          "korean": "내일까지 완료해 주세요.",
+          "japanese": "明日までに完成させてください。"
+        }
+      }
+    ],
+    "pronouns": [
+      {
+        "korean": "너희",
+        "japanese": "君たち",
+        "example": {
+          "korean": "너희는 누구니？",
+          "japanese": "君たちは誰ですか？"
+        }
+      },
+      {
+        "korean": "저",
+        "japanese": "私（謙譲語）",
+        "example": {
+          "korean": "저는 일본에서 왔습니다.",
+          "japanese": "私は日本から来ました。"
+        }
+      }
+    ]
+  }
+}

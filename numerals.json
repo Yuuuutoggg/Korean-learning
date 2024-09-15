@@ -1,0 +1,84 @@
+{
+  "numerals": [
+    {
+      "korean": "하나",
+      "japanese": "一",
+      "example": {
+        "korean": "사과 하나 주세요.",
+        "japanese": "リンゴを一つください。"
+      }
+    },
+    {
+      "korean": "둘",
+      "japanese": "二",
+      "example": {
+        "korean": "둘이서 가요.",
+        "japanese": "二人で行きます。"
+      }
+    },
+    {
+      "korean": "셋",
+      "japanese": "三",
+      "example": {
+        "korean": "셋이서 갑시다.",
+        "japanese": "三人で行きましょう。"
+      }
+    },
+    {
+      "korean": "넷",
+      "japanese": "四",
+      "example": {
+        "korean": "넷째 날에 만나요.",
+        "japanese": "四日目に会いましょう。"
+      }
+    },
+    {
+      "korean": "다섯",
+      "japanese": "五",
+      "example": {
+        "korean": "다섯 명이 필요해요.",
+        "japanese": "五人が必要です。"
+      }
+    },
+    {
+      "korean": "여섯",
+      "japanese": "六",
+      "example": {
+        "korean": "여섯 시에 만나자.",
+        "japanese": "六時に会いましょう。"
+      }
+    },
+    {
+      "korean": "일곱",
+      "japanese": "七",
+      "example": {
+        "korean": "일곱 번째 손님.",
+        "japanese": "七番目のお客様。"
+      }
+    },
+    {
+      "korean": "여덟",
+      "japanese": "八",
+      "example": {
+        "korean": "여덟 살짜리 아이.",
+        "japanese": "八歳の子供。"
+      }
+    },
+    {
+      "korean": "아홉",
+      "japanese": "九",
+      "example": {
+        "korean": "아홉 시에 출발해요.",
+        "japanese": "九時に出発します。"
+      }
+    },
+    {
+      "korean": "열",
+      "japanese": "十",
+      "example": {
+        "korean": "열 개의 사과.",
+        "japanese": "十個のリンゴ。"
+      }
+    }
+  ]
+}
