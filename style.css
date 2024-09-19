@@ -1055,3 +1055,8 @@ body.dark-mode #quiz-summary-list li {
         padding: 0;
     }
 }
+
+/* Center contents vertically in all screens */
+.screen {
+    justify-content: center;
+}
