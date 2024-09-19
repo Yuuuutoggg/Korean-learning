@@ -11,7 +11,7 @@ body {
     height: 100vh;
     width: 100vw;
     transition: background-color 0.3s, color 0.3s;
-    font-size: 20px; /* 全体のフォントサイズを大きく */
+    font-size: 18px; /* 基本フォントサイズを少し大きく */
     box-sizing: border-box;
 }
 
@@ -24,14 +24,14 @@ body {
     width: 100%;
     height: 100%;
     padding: 0; /* 余白をなくす */
-    background: white;
+    background: white; /* デフォルトの背景色 */
     text-align: center;
+    transition: background-color 0.5s; /* 背景色変更時のトランジション効果 */
 }
 
-/* ボタンのスタイル */
+/* ボタンの基本スタイル */
 button {
-    background-color: #007BFF;
-    color: white;
+    color: white; /* ボタンのテキスト色を白に統一 */
     padding: 16px 32px;
     margin: 5px 0;
     border: none;
@@ -41,18 +41,60 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
+/* 各スクリーンごとのボタンの色設定 */
+#mode-selection button {
+    background-color: #FFCC00; /* 黄色系 */
 }
 
-button:focus {
-    outline: none;
+#practice-mode-selection button {
+    background-color: #00CCFF; /* 青系 */
+}
+
+#korean-keyboard-warning button {
+    background-color: #FF6666; /* 赤系 */
+}
+
+#level-selection button {
+    background-color: #66CC66; /* 緑系 */
+}
+
+#part-of-speech-selection button {
+    background-color: #9933FF; /* 紫系 */
+}
+
+#difficulty-selection button {
+    background-color: #FF9933; /* オレンジ系 */
+}
+
+#typing-practice button {
+    background-color: #009933; /* 濃い緑系 */
+}
+
+#learning-mode button {
+    background-color: #FF3399; /* ピンク系 */
+}
+
+#studying-words button {
+    background-color: #3366FF; /* 青系 */
+}
+
+#score-screen button {
+    background-color: #CC0033; /* 濃い赤系 */
+}
+
+#learning-level-selection button {
+    background-color: #33CC99; /* 青緑系 */
+}
+
+/* ボタンのホバー効果 */
+button:hover {
+    filter: brightness(90%);
 }
 
 /* タイトル用のスタイル */
 h1, h2 {
     margin-bottom: 10px;
-    font-size: 2em; /* タイトルのフォントサイズを小さくする */
+    font-size: 2em; /* タイトルのフォントサイズを調整 */
 }
 
 /* タイピング練習用のスタイル */
@@ -139,7 +181,8 @@ h1, h2 {
     text-align: center;
 }
 
-/* 削除ボタンのスタイル */
+/* 削除ボタンのスタイル（既に各スクリーンでボタン色を設定しているため不要になる可能性があります） */
+/*
 #studying-list li button {
     margin-top: 10px;
     padding: 10px 20px;
@@ -153,30 +196,10 @@ h1, h2 {
     align-self: center;
 }
 
-/* 削除ボタンのホバースタイル */
 #studying-list li button:hover {
     background-color: #c53030;
 }
-
-/* ダークモード用のスタイル（勉強中の単語リスト） */
-body.dark-mode #studying-words {
-    background-color: #444;
-}
-
-body.dark-mode #studying-list li {
-    background-color: #555;
-    color: #f4f4f4;
-    border-bottom: 1px solid #666;
-}
-
-body.dark-mode #studying-list li button {
-    background-color: #e53e3e;
-    color: white;
-}
-
-body.dark-mode #studying-list li button:hover {
-    background-color: #c53030;
-}
+*/
 
 /* モーダルのスタイル */
 .modal {
@@ -203,13 +226,7 @@ body.dark-mode #studying-list li button:hover {
     font-size: 1.2em;
 }
 
-body.dark-mode .modal-content {
-    background-color: #444444;
-    color: #f4f4f4;
-    border: 1px solid #555555;
-}
-
-/* ダークモード用スタイル */
+/* ダークモード用のスタイル */
 .dark-mode {
     background-color: #333;
     color: #f4f4f4;
@@ -221,17 +238,18 @@ body.dark-mode .modal-content {
 }
 
 .dark-mode button {
-    background-color: #888;
-    color: white;
+    /* 各スクリーンごとのボタンの色をダークモード用に調整 */
+    color: white; /* テキスト色は白のまま */
 }
 
 .dark-mode button:hover {
-    background-color: #666;
+    filter: brightness(80%);
 }
 
-.dark-mode .modal-content {
-    background-color: #444;
+body.dark-mode .modal-content {
+    background-color: #444444;
     color: #f4f4f4;
+    border: 1px solid #555555;
 }
 
 /* アニメーション効果 */
@@ -251,26 +269,76 @@ body.dark-mode .modal-content {
 /* レスポンシブデザインの調整 */
 @media (max-width: 768px) {
     body {
-        font-size: 22px;
+        font-size: 19px; /* フォントサイズを微調整 */
+    }
+
+    /* 各スクリーンごとのボタンの色設定（レスポンシブ対応） */
+    #mode-selection button {
+        background-color: #FFCC00; /* 黄色系 */
+    }
+
+    #practice-mode-selection button {
+        background-color: #00CCFF; /* 青系 */
+    }
+
+    #korean-keyboard-warning button {
+        background-color: #FF6666; /* 赤系 */
+    }
+
+    #level-selection button {
+        background-color: #66CC66; /* 緑系 */
+    }
+
+    #part-of-speech-selection button {
+        background-color: #9933FF; /* 紫系 */
+    }
+
+    #difficulty-selection button {
+        background-color: #FF9933; /* オレンジ系 */
+    }
+
+    #typing-practice button {
+        background-color: #009933; /* 濃い緑系 */
+    }
+
+    #learning-mode button {
+        background-color: #FF3399; /* ピンク系 */
+    }
+
+    #studying-words button {
+        background-color: #3366FF; /* 青系 */
+    }
+
+    #score-screen button {
+        background-color: #CC0033; /* 濃い赤系 */
+    }
+
+    #learning-level-selection button {
+        background-color: #33CC99; /* 青緑系 */
     }
 
     button {
-        font-size: 22px;
-        padding: 18px 36px;
+        font-size: 19px;
+        padding: 18px 38px; /* パディングを微調整 */
     }
 
     h1, h2 {
-        font-size: 2.2em;
+        font-size: 2.3em; /* タイトルのフォントサイズを微調整 */
     }
 
     #typing-practice #korean-word {
-        font-size: 34px;
+        font-size: 38px; /* 韓国語のフォントサイズを微調整 */
+    }
+
+    #typing-practice #japanese-translation {
+        font-size: 26px; /* 日本語訳のフォントサイズを微調整 */
     }
 
     #typing-practice input {
-        width: 95%;
-        padding: 16px;
-        font-size: 26px;
+        width: 90%;
+        max-width: 500px;
+        padding: 14px;
+        font-size: 22px; /* フォントサイズを微調整 */
     }
 
     #learning-mode p {
@@ -278,40 +346,89 @@ body.dark-mode .modal-content {
     }
 
     .studying-word p {
-        font-size: 1.6em;
+        font-size: 1.75em;
         padding: 16px;
-        margin-bottom: 10px;
+        margin-bottom: 11px;
     }
 
     .modal-content {
-        padding: 30px;
+        padding: 32px;
         max-width: 500px;
-        font-size: 1.3em;
+        font-size: 1.5em;
     }
 }
 
 @media (max-width: 480px) {
     body {
-        font-size: 24px;
+        font-size: 20px; /* フォントサイズを微調整 */
+    }
+
+    /* 各スクリーンごとのボタンの色設定（レスポンシブ対応） */
+    #mode-selection button {
+        background-color: #FFCC00; /* 黄色系 */
+    }
+
+    #practice-mode-selection button {
+        background-color: #00CCFF; /* 青系 */
+    }
+
+    #korean-keyboard-warning button {
+        background-color: #FF6666; /* 赤系 */
+    }
+
+    #level-selection button {
+        background-color: #66CC66; /* 緑系 */
+    }
+
+    #part-of-speech-selection button {
+        background-color: #9933FF; /* 紫系 */
+    }
+
+    #difficulty-selection button {
+        background-color: #FF9933; /* オレンジ系 */
+    }
+
+    #typing-practice button {
+        background-color: #009933; /* 濃い緑系 */
+    }
+
+    #learning-mode button {
+        background-color: #FF3399; /* ピンク系 */
+    }
+
+    #studying-words button {
+        background-color: #3366FF; /* 青系 */
+    }
+
+    #score-screen button {
+        background-color: #CC0033; /* 濃い赤系 */
+    }
+
+    #learning-level-selection button {
+        background-color: #33CC99; /* 青緑系 */
     }
 
     button {
-        font-size: 24px;
-        padding: 18px 36px;
+        font-size: 20px;
+        padding: 20px 40px; /* パディングを微調整 */
     }
 
     h1, h2 {
-        font-size: 2em;
+        font-size: 2.5em; /* タイトルのフォントサイズを微調整 */
     }
 
     #typing-practice #korean-word {
-        font-size: 36px;
+        font-size: 40px; /* 韓国語のフォントサイズを微調整 */
+    }
+
+    #typing-practice #japanese-translation {
+        font-size: 28px; /* 日本語訳のフォントサイズを微調整 */
     }
 
     #typing-practice input {
         width: 95%;
         padding: 18px;
-        font-size: 28px;
+        font-size: 24px; /* フォントサイズを微調整 */
     }
 
     #learning-mode p {
@@ -319,14 +436,670 @@ body.dark-mode .modal-content {
     }
 
     .studying-word p {
-        font-size: 1.8em;
+        font-size: 1.9em;
         padding: 18px;
-        margin-bottom: 10px;
+        margin-bottom: 13px;
     }
 
     .modal-content {
-        padding: 30px;
+        padding: 36px;
         max-width: 450px;
-        font-size: 1.4em;
+        font-size: 1.55em;
     }
+}
+
+/* 各スクリーンの背景色設定 */
+#mode-selection {
+    background-color: #FFFAE5; /* 淡い黄色 */
+}
+
+#practice-mode-selection {
+    background-color: #E5FFFA; /* 淡い青緑 */
+}
+
+#korean-keyboard-warning {
+    background-color: #FFE5E5; /* 淡い赤 */
+}
+
+#level-selection {
+    background-color: #E5E5FF; /* 淡い青 */
+}
+
+#part-of-speech-selection {
+    background-color: #F5E5FF; /* 淡い紫 */
+}
+
+#difficulty-selection {
+    background-color: #E5FFF5; /* 淡い緑 */
+}
+
+#typing-practice {
+    background-color: #FFF5E5; /* 淡いオレンジ */
+}
+
+#learning-mode {
+    background-color: #E5F7FF; /* 淡い水色 */
+}
+
+#studying-words {
+    background-color: #F0FFE5; /* 淡い緑 */
+}
+
+#score-screen {
+    background-color: #FFE5F0; /* 淡いピンク */
+}
+
+#learning-level-selection {
+    background-color: #E5FFE5; /* 淡い緑 */
+}
+
+/* ダークモード用の背景色設定 */
+body.dark-mode #mode-selection {
+    background-color: #333300; /* ダークな黄色 */
+}
+
+body.dark-mode #practice-mode-selection {
+    background-color: #003333; /* ダークな青緑 */
+}
+
+body.dark-mode #korean-keyboard-warning {
+    background-color: #330000; /* ダークな赤 */
+}
+
+body.dark-mode #level-selection {
+    background-color: #333366; /* ダークな青 */
+}
+
+body.dark-mode #part-of-speech-selection {
+    background-color: #4d0033; /* ダークな紫 */
+}
+
+body.dark-mode #difficulty-selection {
+    background-color: #003333; /* ダークな緑 */
+}
+
+body.dark-mode #typing-practice {
+    background-color: #333300; /* ダークなオレンジ */
+}
+
+body.dark-mode #learning-mode {
+    background-color: #00334d; /* ダークな水色 */
+}
+
+body.dark-mode #studying-words {
+    background-color: #003300; /* ダークな緑 */
+}
+
+body.dark-mode #score-screen {
+    background-color: #4d0033; /* ダークなピンク */
+}
+
+body.dark-mode #learning-level-selection {
+    background-color: #003300; /* ダークな緑 */
+}
+
+/* ダークモード用のボタン色設定 */
+/* 各スクリーンごとのダークモード用ボタン色設定 */
+body.dark-mode #mode-selection button {
+    background-color: #FFB300; /* 少し暗い黄色系 */
+}
+
+body.dark-mode #practice-mode-selection button {
+    background-color: #00B0F0; /* 少し暗い青系 */
+}
+
+body.dark-mode #korean-keyboard-warning button {
+    background-color: #FF4C4C; /* 少し暗い赤系 */
+}
+
+body.dark-mode #level-selection button {
+    background-color: #4CAF50; /* 少し暗い緑系 */
+}
+
+body.dark-mode #part-of-speech-selection button {
+    background-color: #8E24AA; /* 少し暗い紫系 */
+}
+
+body.dark-mode #difficulty-selection button {
+    background-color: #FF7043; /* 少し暗いオレンジ系 */
+}
+
+body.dark-mode #typing-practice button {
+    background-color: #2E7D32; /* 少し暗い濃い緑系 */
+}
+
+body.dark-mode #learning-mode button {
+    background-color: #D81B60; /* 少し暗いピンク系 */
+}
+
+body.dark-mode #studying-words button {
+    background-color: #1E88E5; /* 少し暗い青系 */
+}
+
+body.dark-mode #score-screen button {
+    background-color: #C62828; /* 少し暗い濃い赤系 */
+}
+
+body.dark-mode #learning-level-selection button {
+    background-color: #2E7D32; /* 少し暗い青緑系 */
+}
+
+/* モーダルのスタイル（既に設定されていますが、念のため再確認） */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 1.2em;
+}
+
+body.dark-mode .modal-content {
+    background-color: #444444;
+    color: #f4f4f4;
+    border: 1px solid #555555;
+}
+
+/* ダークモードの一般スタイル */
+.dark-mode .screen {
+    /* 各スクリーンの背景色は個別に設定済み */
+    color: #f4f4f4;
+}
+
+.dark-mode button {
+    /* 各スクリーンごとのダークモード用ボタン色設定済み */
+}
+
+/* アニメーション効果 */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* レスポンシブデザインの調整 */
+@media (max-width: 768px) {
+    body {
+        font-size: 19px; /* フォントサイズを微調整 */
+    }
+
+    /* 各スクリーンごとのボタンの色設定（レスポンシブ対応） */
+    #mode-selection button {
+        background-color: #FFCC00; /* 黄色系 */
+    }
+
+    #practice-mode-selection button {
+        background-color: #00CCFF; /* 青系 */
+    }
+
+    #korean-keyboard-warning button {
+        background-color: #FF6666; /* 赤系 */
+    }
+
+    #level-selection button {
+        background-color: #66CC66; /* 緑系 */
+    }
+
+    #part-of-speech-selection button {
+        background-color: #9933FF; /* 紫系 */
+    }
+
+    #difficulty-selection button {
+        background-color: #FF9933; /* オレンジ系 */
+    }
+
+    #typing-practice button {
+        background-color: #009933; /* 濃い緑系 */
+    }
+
+    #learning-mode button {
+        background-color: #FF3399; /* ピンク系 */
+    }
+
+    #studying-words button {
+        background-color: #3366FF; /* 青系 */
+    }
+
+    #score-screen button {
+        background-color: #CC0033; /* 濃い赤系 */
+    }
+
+    #learning-level-selection button {
+        background-color: #33CC99; /* 青緑系 */
+    }
+
+    button {
+        font-size: 19px;
+        padding: 18px 38px; /* パディングを微調整 */
+    }
+
+    h1, h2 {
+        font-size: 2.3em; /* タイトルのフォントサイズを微調整 */
+    }
+
+    #typing-practice #korean-word {
+        font-size: 38px; /* 韓国語のフォントサイズを微調整 */
+    }
+
+    #typing-practice #japanese-translation {
+        font-size: 26px; /* 日本語訳のフォントサイズを微調整 */
+    }
+
+    #typing-practice input {
+        width: 90%;
+        max-width: 500px;
+        padding: 14px;
+        font-size: 22px; /* フォントサイズを微調整 */
+    }
+
+    #learning-mode p {
+        font-size: 24px;
+    }
+
+    .studying-word p {
+        font-size: 1.75em;
+        padding: 16px;
+        margin-bottom: 11px;
+    }
+
+    .modal-content {
+        padding: 32px;
+        max-width: 500px;
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 20px; /* フォントサイズを微調整 */
+    }
+
+    /* 各スクリーンごとのボタンの色設定（レスポンシブ対応） */
+    #mode-selection button {
+        background-color: #FFCC00; /* 黄色系 */
+    }
+
+    #practice-mode-selection button {
+        background-color: #00CCFF; /* 青系 */
+    }
+
+    #korean-keyboard-warning button {
+        background-color: #FF6666; /* 赤系 */
+    }
+
+    #level-selection button {
+        background-color: #66CC66; /* 緑系 */
+    }
+
+    #part-of-speech-selection button {
+        background-color: #9933FF; /* 紫系 */
+    }
+
+    #difficulty-selection button {
+        background-color: #FF9933; /* オレンジ系 */
+    }
+
+    #typing-practice button {
+        background-color: #009933; /* 濃い緑系 */
+    }
+
+    #learning-mode button {
+        background-color: #FF3399; /* ピンク系 */
+    }
+
+    #studying-words button {
+        background-color: #3366FF; /* 青系 */
+    }
+
+    #score-screen button {
+        background-color: #CC0033; /* 濃い赤系 */
+    }
+
+    #learning-level-selection button {
+        background-color: #33CC99; /* 青緑系 */
+    }
+
+    button {
+        font-size: 20px;
+        padding: 20px 40px; /* パディングを微調整 */
+    }
+
+    h1, h2 {
+        font-size: 2.5em; /* タイトルのフォントサイズを微調整 */
+    }
+
+    #typing-practice #korean-word {
+        font-size: 40px; /* 韓国語のフォントサイズを微調整 */
+    }
+
+    #typing-practice #japanese-translation {
+        font-size: 28px; /* 日本語訳のフォントサイズを微調整 */
+    }
+
+    #typing-practice input {
+        width: 95%;
+        padding: 18px;
+        font-size: 24px; /* フォントサイズを微調整 */
+    }
+
+    #learning-mode p {
+        font-size: 26px;
+    }
+
+    .studying-word p {
+        font-size: 1.9em;
+        padding: 18px;
+        margin-bottom: 13px;
+    }
+
+    .modal-content {
+        padding: 36px;
+        max-width: 450px;
+        font-size: 1.55em;
+    }
+}
+
+/* 各スクリーンの背景色設定 */
+#mode-selection {
+    background-color: #FFFAE5; /* 淡い黄色 */
+}
+
+#practice-mode-selection {
+    background-color: #E5FFFA; /* 淡い青緑 */
+}
+
+#korean-keyboard-warning {
+    background-color: #FFE5E5; /* 淡い赤 */
+}
+
+#level-selection {
+    background-color: #E5E5FF; /* 淡い青 */
+}
+
+#part-of-speech-selection {
+    background-color: #F5E5FF; /* 淡い紫 */
+}
+
+#difficulty-selection {
+    background-color: #E5FFF5; /* 淡い緑 */
+}
+
+#typing-practice {
+    background-color: #FFF5E5; /* 淡いオレンジ */
+}
+
+#learning-mode {
+    background-color: #E5F7FF; /* 淡い水色 */
+}
+
+#studying-words {
+    background-color: #F0FFE5; /* 淡い緑 */
+}
+
+#score-screen {
+    background-color: #FFE5F0; /* 淡いピンク */
+}
+
+#learning-level-selection {
+    background-color: #E5FFE5; /* 淡い緑 */
+}
+
+/* ダークモード用の背景色設定 */
+body.dark-mode #mode-selection {
+    background-color: #333300; /* ダークな黄色 */
+}
+
+body.dark-mode #practice-mode-selection {
+    background-color: #003333; /* ダークな青緑 */
+}
+
+body.dark-mode #korean-keyboard-warning {
+    background-color: #330000; /* ダークな赤 */
+}
+
+body.dark-mode #level-selection {
+    background-color: #333366; /* ダークな青 */
+}
+
+body.dark-mode #part-of-speech-selection {
+    background-color: #4d0033; /* ダークな紫 */
+}
+
+body.dark-mode #difficulty-selection {
+    background-color: #003333; /* ダークな緑 */
+}
+
+body.dark-mode #typing-practice {
+    background-color: #333300; /* ダークなオレンジ */
+}
+
+body.dark-mode #learning-mode {
+    background-color: #00334d; /* ダークな水色 */
+}
+
+body.dark-mode #studying-words {
+    background-color: #003300; /* ダークな緑 */
+}
+
+body.dark-mode #score-screen {
+    background-color: #4d0033; /* ダークなピンク */
+}
+
+body.dark-mode #learning-level-selection {
+    background-color: #003300; /* ダークな緑 */
+}
+
+/* ダークモード用のボタン色設定 */
+/* 各スクリーンごとのダークモード用ボタン色設定 */
+body.dark-mode #mode-selection button {
+    background-color: #FFB300; /* 少し暗い黄色系 */
+}
+
+body.dark-mode #practice-mode-selection button {
+    background-color: #00B0F0; /* 少し暗い青系 */
+}
+
+body.dark-mode #korean-keyboard-warning button {
+    background-color: #FF4C4C; /* 少し暗い赤系 */
+}
+
+body.dark-mode #level-selection button {
+    background-color: #4CAF50; /* 少し暗い緑系 */
+}
+
+body.dark-mode #part-of-speech-selection button {
+    background-color: #8E24AA; /* 少し暗い紫系 */
+}
+
+body.dark-mode #difficulty-selection button {
+    background-color: #FF7043; /* 少し暗いオレンジ系 */
+}
+
+body.dark-mode #typing-practice button {
+    background-color: #2E7D32; /* 少し暗い濃い緑系 */
+}
+
+body.dark-mode #learning-mode button {
+    background-color: #D81B60; /* 少し暗いピンク系 */
+}
+
+body.dark-mode #studying-words button {
+    background-color: #1E88E5; /* 少し暗い青系 */
+}
+
+body.dark-mode #score-screen button {
+    background-color: #C62828; /* 少し暗い濃い赤系 */
+}
+
+body.dark-mode #learning-level-selection button {
+    background-color: #2E7D32; /* 少し暗い青緑系 */
+}
+
+/* モーダルの背景色は既に設定されていますが、念のため再確認 */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 1.2em;
+}
+
+body.dark-mode .modal-content {
+    background-color: #444444;
+    color: #f4f4f4;
+    border: 1px solid #555555;
+}
+
+/* 一般的なダークモードのスタイルは既に設定されています */
+
+/* レスポンシブデザインの調整 */
+@media (max-width: 768px) {
+    /* フォントサイズやパディングは前回の調整を維持 */
+
+    /* 各スクリーンごとのボタンの色設定（レスポンシブ対応） */
+    /* 同様に各スクリーンごとのボタン色を再設定 */
+    #mode-selection button {
+        background-color: #FFCC00; /* 黄色系 */
+    }
+
+    #practice-mode-selection button {
+        background-color: #00CCFF; /* 青系 */
+    }
+
+    #korean-keyboard-warning button {
+        background-color: #FF6666; /* 赤系 */
+    }
+
+    #level-selection button {
+        background-color: #66CC66; /* 緑系 */
+    }
+
+    #part-of-speech-selection button {
+        background-color: #9933FF; /* 紫系 */
+    }
+
+    #difficulty-selection button {
+        background-color: #FF9933; /* オレンジ系 */
+    }
+
+    #typing-practice button {
+        background-color: #009933; /* 濃い緑系 */
+    }
+
+    #learning-mode button {
+        background-color: #FF3399; /* ピンク系 */
+    }
+
+    #studying-words button {
+        background-color: #3366FF; /* 青系 */
+    }
+
+    #score-screen button {
+        background-color: #CC0033; /* 濃い赤系 */
+    }
+
+    #learning-level-selection button {
+        background-color: #33CC99; /* 青緑系 */
+    }
+}
+
+@media (max-width: 480px) {
+    /* フォントサイズやパディングは前回の調整を維持 */
+
+    /* 各スクリーンごとのボタンの色設定（レスポンシブ対応） */
+    #mode-selection button {
+        background-color: #FFCC00; /* 黄色系 */
+    }
+
+    #practice-mode-selection button {
+        background-color: #00CCFF; /* 青系 */
+    }
+
+    #korean-keyboard-warning button {
+        background-color: #FF6666; /* 赤系 */
+    }
+
+    #level-selection button {
+        background-color: #66CC66; /* 緑系 */
+    }
+
+    #part-of-speech-selection button {
+        background-color: #9933FF; /* 紫系 */
+    }
+
+    #difficulty-selection button {
+        background-color: #FF9933; /* オレンジ系 */
+    }
+
+    #typing-practice button {
+        background-color: #009933; /* 濃い緑系 */
+    }
+
+    #learning-mode button {
+        background-color: #FF3399; /* ピンク系 */
+    }
+
+    #studying-words button {
+        background-color: #3366FF; /* 青系 */
+    }
+
+    #score-screen button {
+        background-color: #CC0033; /* 濃い赤系 */
+    }
+
+    #learning-level-selection button {
+        background-color: #33CC99; /* 青緑系 */
+    }
+}
+
+/* ボタンのフォーカススタイルを削除 */
+button:focus {
+    outline: none;
+}
+
+/* 確認ダイアログのボタンスタイル */
+#confirm-yes {
+    background-color: #28a745; /* 緑色 */
+    color: white; /* テキスト色を白に */
+}
+
+#confirm-no {
+    background-color: #dc3545; /* 赤色 */
+    color: white; /* テキスト色を白に */
+}
+
+#confirm-yes:hover {
+    background-color: #218838; /* 少し暗い緑色 */
+}
+
+#confirm-no:hover {
+    background-color: #c82333; /* 少し暗い赤色 */
+}
+
+body.dark-mode #confirm-yes {
+    background-color: #1e7e34; /* ダークモード用緑色 */
+}
+
+body.dark-mode #confirm-no {
+    background-color: #bd2130; /* ダークモード用赤色 */
+}
+
+body.dark-mode #confirm-yes:hover {
+    background-color: #1c7430; /* ダークモード用ホバー緑色 */
+}
+
+body.dark-mode #confirm-no:hover {
+    background-color: #a71d2a; /* ダークモード用ホバー赤色 */
 }
