@@ -24,10 +24,11 @@
         <h1>韓国語タイピング＆学習アプリ</h1>
         <button onclick="selectMode('practice')"><i class="fas fa-keyboard"></i> タイピング練習モード</button>
         <button onclick="selectMode('learning')"><i class="fas fa-book"></i> 学習モード</button>
-         <!-- ダークモード切替ボタンを追加 -->
-    <button id="dark-mode-button" onclick="toggleDarkMode()" class="dark-mode-toggle">
-        <i class="fas fa-moon"></i> ダークモード
-    </button>
+        <button onclick="selectMode('quiz')"><i class="fas fa-question"></i> 四択クイズモード</button>
+        <!-- ダークモード切替ボタンを追加 -->
+        <button id="dark-mode-button" onclick="toggleDarkMode()" class="dark-mode-toggle">
+            <i class="fas fa-moon"></i> ダークモード
+        </button>
     </div>
 
     <!-- タイピング練習モードのサブモード選択画面 -->
@@ -35,7 +36,7 @@
         <h2>タイピング練習モード</h2>
         <button onclick="selectPracticeMode('timeattack')">タイムアタックモード</button>
         <button onclick="selectPracticeMode('partofspeech')">品詞別モード</button>
-        <button onclick="confirmReturnToTitle()">戻る</button>
+        <button onclick="confirmReturnToTitle()"><i class="fas fa-home"></i> 戻る</button>
     </div>
 
     <!-- タイムアタックモードの韓国語キーボード警告画面 -->
@@ -51,7 +52,7 @@
         <button onclick="selectLevel('beginner')">初級</button>
         <button onclick="selectLevel('intermediate')">中級</button>
         <button onclick="selectLevel('advanced')">上級</button>
-        <button onclick="confirmReturnToTitle()">戻る</button>
+        <button onclick="confirmReturnToTitle()"><i class="fas fa-home"></i> 戻る</button>
     </div>
 
     <!-- 品詞選択画面 -->
@@ -75,7 +76,7 @@
         <button onclick="selectDifficulty('beginner')">初級</button>
         <button onclick="selectDifficulty('intermediate')">中級</button>
         <button onclick="selectDifficulty('advanced')">上級</button>
-        <button onclick="confirmReturnToTitle()">戻る</button>
+        <button onclick="confirmReturnToTitle()"><i class="fas fa-home"></i> 戻る</button>
     </div>
 
     <!-- タイピング練習画面 -->
@@ -118,6 +119,30 @@
         <button onclick="postToX()"><i class="fab fa-twitter"></i> 結果をXでポストする</button>
         <button onclick="retryGame()"><i class="fas fa-redo"></i> リトライ</button>
         <button onclick="goToLevelSelection()"><i class="fas fa-level-up-alt"></i> レベル選択</button>
+        <button onclick="confirmReturnToTitle()"><i class="fas fa-home"></i> タイトルに戻る</button>
+    </div>
+
+    <!-- 四択クイズ画面 -->
+    <div id="quiz-screen" class="screen fade-in" style="display: none;">
+        <h2>四択クイズ</h2>
+        <p id="quiz-question">ここに質問が表示されます</p>
+        <div id="quiz-feedback" style="font-size: 2em; margin-bottom: 10px;"></div>
+        <div id="quiz-choices">
+            <button onclick="handleQuizChoice(0)">選択肢1</button>
+            <button onclick="handleQuizChoice(1)">選択肢2</button>
+            <button onclick="handleQuizChoice(2)">選択肢3</button>
+            <button onclick="handleQuizChoice(3)">選択肢4</button>
+        </div>
+        <p id="quiz-score">スコア: 0</p>
+        <button onclick="confirmReturnToTitle()"><i class="fas fa-home"></i> タイトルに戻る</button>
+    </div>
+
+    <!-- クイズ終了後の解答一覧画面 -->
+    <div id="quiz-summary" class="screen fade-in" style="display: none;">
+        <h2>解答一覧</h2>
+        <ul id="quiz-summary-list"></ul>
+        <p id="quiz-final-score">最終スコア: 0 / 0</p>
+        <button onclick="retryQuiz()">もう一度クイズをする</button>
         <button onclick="confirmReturnToTitle()"><i class="fas fa-home"></i> タイトルに戻る</button>
     </div>
 
