@@ -1,19 +1,23 @@
 // グローバル変数の宣言
-let selectedMode = ''; // 'practice' または 'learning'
-let selectedPracticeMode = ''; // 'timeattack' または 'partofspeech'
+let selectedMode = ''; // 'practice', 'learning', 'quiz'
+let selectedPracticeMode = ''; // 'timeattack', 'partofspeech'
 let selectedPartOfSpeech = ''; // 'verbs', 'adjectives', etc.
 let selectedLevel = ''; // 'beginner', 'intermediate', 'advanced'
 
-let currentWordList = []; // 現在のタイピング練習単語リスト
-let currentWordIndex = 0; // 現在の単語インデックス
-let score = 0; // タイムアタックモードのスコア
-let timeLeft = 60; // タイムアタックモードの残り時間
-let timer; // タイマーの識別子
+let currentWordList = [];
+let currentWordIndex = 0;
+let score = 0;
+let timeLeft = 60;
+let timer;
 
-let learningWordList = []; // 現在の学習モード単語リスト
-let learningWordIndex = 0; // 現在表示中の学習モード単語インデックス
+let learningWordList = [];
+let learningWordIndex = 0;
+let studyingList = JSON.parse(localStorage.getItem('studyingList')) || [];
 
-let studyingList = JSON.parse(localStorage.getItem('studyingList')) || []; // 勉強中の単語リスト
+let quizQuestions = [];
+let currentQuizQuestionIndex = 0;
+let quizScore = 0;
+let userAnswers = [];
 
 // DOM要素の取得
 const modeSelection = document.getElementById('mode-selection');
@@ -43,6 +47,15 @@ const confirmYesButton = document.getElementById('confirm-yes');
 const confirmNoButton = document.getElementById('confirm-no');
 const darkModeButton = document.getElementById('dark-mode-button');
 
+const quizScreen = document.getElementById('quiz-screen');
+const quizQuestionElement = document.getElementById('quiz-question');
+const quizChoicesElement = document.getElementById('quiz-choices');
+const quizScoreElement = document.getElementById('quiz-score');
+const quizFeedbackElement = document.getElementById('quiz-feedback');
+const quizSummary = document.getElementById('quiz-summary');
+const quizSummaryList = document.getElementById('quiz-summary-list');
+const quizFinalScoreElement = document.getElementById('quiz-final-score');
+
 // ユーティリティ関数
 function showElement(element) {
     element.style.display = 'flex';
@@ -67,6 +80,8 @@ function selectMode(mode) {
         showElement(practiceModeSelection);
     } else if (mode === 'learning') {
         showElement(partOfSpeechSelection);
+    } else if (mode === 'quiz') {
+        showElement(levelSelection);
     }
 }
 
@@ -87,14 +102,14 @@ function acknowledgeKoreanKeyboard() {
     showElement(levelSelection);
 }
 
-// レベル選択関数（タイムアタックモード用）
+// レベル選択関数（practice または quiz モード用）
 function selectLevel(level) {
     selectedLevel = level;
     hideElement(levelSelection);
     if (selectedMode === 'practice') {
         startTypingPractice();
-    } else if (selectedMode === 'learning') {
-        fetchLearningWords();
+    } else if (selectedMode === 'quiz') {
+        startQuiz();
     }
 }
 
@@ -111,34 +126,33 @@ function selectPartOfSpeech(partOfSpeech, skipDifficulty = false) {
     hideElement(partOfSpeechSelection);
     if (selectedMode === 'practice') {
         if (skipDifficulty) {
-            // 数詞の場合、難易度選択をスキップして直接開始
             startTypingPractice();
         } else {
-            // 品詞別モードでは難易度選択を表示
             showElement(difficultySelection);
         }
     } else if (selectedMode === 'learning') {
-        // 学習モードではレベル選択を表示
         showLevelSelectionForLearning();
     }
 }
 
 // 学習モード用のレベル選択画面表示関数
 function showLevelSelectionForLearning() {
-    // 新しいレベル選択画面を表示
-    const learningLevelSelection = document.createElement('div');
-    learningLevelSelection.id = 'learning-level-selection';
-    learningLevelSelection.classList.add('screen', 'fade-in');
-    learningLevelSelection.style.display = 'flex';
-    learningLevelSelection.innerHTML = `
-        <h2>難易度を選択してください</h2>
-        <button onclick="selectLearningLevel('beginner')">初級</button>
-        <button onclick="selectLearningLevel('intermediate')">中級</button>
-        <button onclick="selectLearningLevel('advanced')">上級</button>
-        <button onclick="confirmReturnToTitle()">戻る</button>
-    `;
-    document.body.appendChild(learningLevelSelection);
-    showElement(learningLevelSelection);
+    const learningLevelSelection = document.getElementById('learning-level-selection');
+    if (!learningLevelSelection) {
+        const learningLevelSelectionDiv = document.createElement('div');
+        learningLevelSelectionDiv.id = 'learning-level-selection';
+        learningLevelSelectionDiv.classList.add('screen', 'fade-in');
+        learningLevelSelectionDiv.style.display = 'flex';
+        learningLevelSelectionDiv.innerHTML = `
+            <h2>難易度を選択してください</h2>
+            <button onclick="selectLearningLevel('beginner')">初級</button>
+            <button onclick="selectLearningLevel('intermediate')">中級</button>
+            <button onclick="selectLearningLevel('advanced')">上級</button>
+            <button onclick="confirmReturnToTitle()">戻る</button>
+        `;
+        document.body.appendChild(learningLevelSelectionDiv);
+    }
+    showElement(document.getElementById('learning-level-selection'));
 }
 
 // 学習モード用のレベル選択関数
@@ -161,13 +175,11 @@ function startTypingPractice() {
     updateScore();
 
     if (selectedPracticeMode === 'timeattack') {
-        // タイムアタックモード設定
         showElement(timerElement);
         timeLeft = 60;
         updateTimer();
         startTimer();
     } else {
-        // 品詞別モード設定（タイマー非表示）
         hideElement(timerElement);
     }
 
@@ -190,7 +202,6 @@ function loadWords() {
         })
         .then(data => {
             if (selectedPracticeMode === 'timeattack') {
-                // タイムアタックモードでは全品詞の単語を統合
                 currentWordList = [];
                 for (let pos in data[selectedLevel]) {
                     if (Array.isArray(data[selectedLevel][pos])) {
@@ -198,7 +209,6 @@ function loadWords() {
                     }
                 }
             } else if (selectedPracticeMode === 'partofspeech') {
-                // 品詞別モードでは選択した品詞の単語を取得
                 currentWordList = data[selectedLevel][selectedPartOfSpeech] || [];
             }
 
@@ -227,7 +237,6 @@ function fetchLearningWords() {
             return response.json();
         })
         .then(data => {
-            // 学習モードでは、選択されたレベルと品詞に基づいて単語を取得
             learningWordList = data[selectedLevel][selectedPartOfSpeech] || [];
             if (learningWordList.length === 0) {
                 alert('選択した品詞と難易度に対応する単語がありません。');
@@ -235,7 +244,7 @@ function fetchLearningWords() {
             }
             shuffleArray(learningWordList);
             learningWordIndex = 0;
-            showElement(learningMode); // 学習モードを表示
+            showElement(learningMode);
             showLearningWord();
         })
         .catch(error => {
@@ -253,7 +262,7 @@ function getFileName(level) {
     } else if (level === 'advanced') {
         return 'words_advanced.json';
     } else {
-        return 'words_beginner.json'; // デフォルト
+        return 'words_beginner.json';
     }
 }
 
@@ -263,9 +272,10 @@ function shuffleArray(array) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
+    return array;
 }
 
-// 次の単語表示関数（タイピング練習モード）
+// 次の単語表示関数
 function showNextWord() {
     if (currentWordIndex < currentWordList.length) {
         const word = currentWordList[currentWordIndex];
@@ -274,7 +284,6 @@ function showNextWord() {
         userInputElement.value = '';
         userInputElement.focus();
 
-        // 進行状況の更新
         if (progressElement) {
             progressElement.textContent = `単語 ${currentWordIndex + 1} / ${currentWordList.length}`;
         }
@@ -401,7 +410,6 @@ function nextLearningWord() {
 // 学習モードで「勉強中」リストに単語を追加する関数
 function addToStudyingList() {
     const currentWord = learningWordList[learningWordIndex];
-    // 重複チェック
     if (!studyingList.some(word => word.korean === currentWord.korean)) {
         studyingList.push(currentWord);
         localStorage.setItem('studyingList', JSON.stringify(studyingList));
@@ -483,14 +491,11 @@ confirmNoButton.addEventListener('click', function() {
 
 // アプリ全体をリセットしてタイトル画面に戻る関数
 function resetApp() {
-    // すべてのスクリーンを非表示に
     const screens = document.querySelectorAll('.screen, .modal');
     screens.forEach(screen => hideElement(screen));
 
-    // 学習モード用の動的に追加したレベル選択画面を削除
     removeElementById('learning-level-selection');
 
-    // 初期化
     selectedMode = '';
     selectedPracticeMode = '';
     selectedPartOfSpeech = '';
@@ -502,27 +507,171 @@ function resetApp() {
     clearInterval(timer);
     learningWordList = [];
     learningWordIndex = 0;
+    quizQuestions = [];
+    currentQuizQuestionIndex = 0;
+    quizScore = 0;
+    userAnswers = [];
 
-    // 初期画面を表示
     showElement(modeSelection);
 }
 
 // ダークモード切替関数
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
-    // 現在のテーマを保存
     const isDarkMode = document.body.classList.contains('dark-mode');
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
 }
 
 // ページ読み込み時の初期化処理
 document.addEventListener('DOMContentLoaded', function() {
-    // 保存されたテーマを適用
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
     }
 
-    // 初期画面を表示
     showElement(modeSelection);
 });
+
+// 四択クイズ機能の追加
+
+// クイズ開始関数
+function startQuiz() {
+    quizQuestions = [];
+    quizScore = 0;
+    currentQuizQuestionIndex = 0;
+    userAnswers = [];
+    loadQuizQuestions();
+}
+
+// クイズ用の質問読み込み関数
+function loadQuizQuestions() {
+    const fileName = getFileName(selectedLevel);
+    fetch(fileName)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            let allWords = [];
+            for (let pos in data[selectedLevel]) {
+                if (Array.isArray(data[selectedLevel][pos])) {
+                    allWords = allWords.concat(data[selectedLevel][pos]);
+                }
+            }
+
+            if (allWords.length === 0) {
+                alert('選択したレベルに対応する単語がありません。');
+                resetApp();
+                return;
+            }
+
+            shuffleArray(allWords);
+            const numberOfQuestions = Math.min(10, allWords.length);
+            for (let i = 0; i < numberOfQuestions; i++) {
+                const correctWord = allWords[i];
+                const wrongChoices = getWrongChoices(allWords, correctWord, 3);
+                const choices = shuffleArray([correctWord.japanese, ...wrongChoices]);
+                quizQuestions.push({
+                    korean: correctWord.korean,
+                    correct: correctWord.japanese,
+                    choices: choices
+                });
+            }
+
+            showQuizQuestion();
+        })
+        .catch(error => {
+            console.error('クイズ用の単語データの読み込みに失敗しました:', error);
+            alert('クイズ用の単語データの読み込みに失敗しました。');
+            resetApp();
+        });
+}
+
+// 間違い選択肢を取得する関数
+function getWrongChoices(allWords, correctWord, count) {
+    const wrongWords = allWords.filter(word => word.japanese !== correctWord.japanese);
+    shuffleArray(wrongWords);
+    const choices = wrongWords.slice(0, count).map(word => word.japanese);
+    return choices;
+}
+
+// クイズの質問を表示する関数
+function showQuizQuestion() {
+    if (currentQuizQuestionIndex < quizQuestions.length) {
+        const question = quizQuestions[currentQuizQuestionIndex];
+        quizQuestionElement.textContent = `「${question.korean}」の意味は？`;
+        quizFeedbackElement.textContent = '';
+        quizChoicesElement.innerHTML = '';
+        question.choices.forEach((choice, index) => {
+            const button = document.createElement('button');
+            button.textContent = choice;
+            button.onclick = () => handleQuizChoice(index);
+            quizChoicesElement.appendChild(button);
+        });
+        quizScoreElement.textContent = `スコア: ${quizScore}`;
+        showElement(quizScreen);
+    } else {
+        endQuiz();
+    }
+}
+
+// クイズの選択肢を処理する関数
+function handleQuizChoice(selectedIndex) {
+    const question = quizQuestions[currentQuizQuestionIndex];
+    const selectedChoice = question.choices[selectedIndex];
+    const isCorrect = selectedChoice === question.correct;
+
+    userAnswers.push({
+        korean: question.korean,
+        selected: selectedChoice,
+        correct: question.correct,
+        isCorrect: isCorrect
+    });
+
+    if (isCorrect) {
+        quizScore++;
+    }
+    quizScoreElement.textContent = `スコア: ${quizScore}`;
+
+    quizFeedbackElement.textContent = isCorrect ? '〇' : '✖';
+    quizFeedbackElement.style.color = isCorrect ? '#28a745' : '#dc3545';
+
+    const buttons = quizChoicesElement.querySelectorAll('button');
+    buttons.forEach(button => button.disabled = true);
+
+    setTimeout(() => {
+        currentQuizQuestionIndex++;
+        showQuizQuestion();
+    }, 1000);
+}
+
+// クイズ終了関数
+function endQuiz() {
+    hideElement(quizScreen);
+    populateQuizSummary();
+    showElement(quizSummary);
+}
+
+// クイズ終了後の解答一覧を表示する関数
+function populateQuizSummary() {
+    quizSummaryList.innerHTML = '';
+    userAnswers.forEach((answer, index) => {
+        const li = document.createElement('li');
+        li.classList.add(answer.isCorrect ? 'correct' : 'incorrect');
+        li.innerHTML = `
+            <p>Q${index + 1}: 「${answer.korean}」の意味は？</p>
+            <p>あなたの答え: ${answer.selected} ${answer.isCorrect ? '<span style="color:#28a745;">〇</span>' : '<span style="color:#dc3545;">✖</span>'}</p>
+            <p>正解: ${answer.correct}</p>
+        `;
+        quizSummaryList.appendChild(li);
+    });
+    quizFinalScoreElement.textContent = `最終スコア: ${quizScore} / ${quizQuestions.length}`;
+}
+
+// クイズをリトライする関数
+function retryQuiz() {
+    hideElement(quizSummary);
+    startQuiz();
+}
