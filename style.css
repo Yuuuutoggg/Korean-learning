@@ -1056,7 +1056,7 @@ body.dark-mode #quiz-summary-list li {
     }
 }
 
-/* Center contents vertically in all screens */
-.screen {
+/* Center contents vertically in all screens except the quiz summary screen */
+.screen:not(#quiz-summary) {
     justify-content: center;
 }
