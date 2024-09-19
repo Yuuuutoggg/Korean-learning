@@ -198,7 +198,7 @@ h1, h2 {
     border-bottom: none;
 }
 
-#studying-list li span {
+#studying-list li p {
     display: block;
     margin-bottom: 5px;
     font-size: 20px;
@@ -400,7 +400,7 @@ body.dark-mode #studying-words {
 
 /* 子要素のテキストカラーも明るめのグレーに統一 */
 body.dark-mode #studying-words #studying-list li,
-body.dark-mode #studying-words #studying-list li span {
+body.dark-mode #studying-words #studying-list li p {
     background-color: #2c2c2c; /* ダーク背景色 */
     color: #dcdcdc; /* 明るめのグレーに変更 */
 }
@@ -482,6 +482,23 @@ body.dark-mode #studying-words button:hover {
     #quiz-summary-list li.incorrect {
         font-size: 18px;
     }
+
+    /* 画面いっぱいに広げる調整 */
+    body {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .screen {
+        width: 100%;
+        height: 100vh;
+        max-width: none;
+        padding: 0;
+    }
+
+    #studying-words {
+        padding: 10px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -535,6 +552,16 @@ body.dark-mode #studying-words button:hover {
     #quiz-summary-list li.incorrect {
         font-size: 16px;
     }
+
+    /* 画面いっぱいに広げる調整 */
+    .screen {
+        height: 100vh;
+        padding: 5px;
+    }
+
+    #studying-words {
+        padding: 5px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -586,6 +613,16 @@ body.dark-mode #studying-words button:hover {
     #quiz-summary-list li.correct,
     #quiz-summary-list li.incorrect {
         font-size: 14px;
+    }
+
+    /* 画面いっぱいに広げる調整 */
+    .screen {
+        height: 100vh;
+        padding: 0;
+    }
+
+    #studying-words {
+        padding: 0;
     }
 }
 
@@ -682,7 +719,7 @@ body.dark-mode #studying-words {
 
 /* 子要素のテキストカラーも明るめのグレーに統一 */
 body.dark-mode #studying-words #studying-list li,
-body.dark-mode #studying-words #studying-list li span {
+body.dark-mode #studying-words #studying-list li p {
     background-color: #2c2c2c; /* ダーク背景色 */
     color: #dcdcdc; /* 明るめのグレーに変更 */
 }
@@ -821,4 +858,200 @@ body.dark-mode #quiz-summary-list li.incorrect {
 body.dark-mode #quiz-summary-list li {
     background-color: #555555;
     color: #f4f4f4;
+}
+
+/* 画面いっぱいに広げる調整 */
+@media (max-width: 1024px) {
+    .screen {
+        width: 95%;
+        max-width: 700px;
+    }
+
+    h1, h2 {
+        font-size: 2.2em;
+    }
+
+    button {
+        font-size: 18px;
+        padding: 14px 28px;
+    }
+
+    #typing-practice #korean-word {
+        font-size: 34px;
+    }
+
+    #typing-practice #japanese-translation {
+        font-size: 22px;
+    }
+
+    #typing-practice input {
+        max-width: 450px;
+        font-size: 18px;
+    }
+
+    #learning-mode p {
+        font-size: 20px;
+    }
+
+    #studying-list li {
+        font-size: 18px;
+        padding: 12px;
+    }
+
+    #studying-list li button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+
+    #quiz-summary-list li {
+        font-size: 18px;
+        padding: 12px;
+    }
+
+    #quiz-summary-list li.correct,
+    #quiz-summary-list li.incorrect {
+        font-size: 18px;
+    }
+
+    /* 画面いっぱいに広げる調整 */
+    body {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .screen {
+        width: 100%;
+        height: 100vh;
+        max-width: none;
+        padding: 0;
+    }
+
+    #studying-words {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .screen {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    h1, h2 {
+        font-size: 2em;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 12px 24px;
+    }
+
+    #typing-practice #korean-word {
+        font-size: 32px;
+    }
+
+    #typing-practice #japanese-translation {
+        font-size: 20px;
+    }
+
+    #typing-practice input {
+        max-width: 400px;
+        font-size: 16px;
+    }
+
+    #learning-mode p {
+        font-size: 18px;
+    }
+
+    #studying-list li {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    #studying-list li button {
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+
+    #quiz-summary-list li {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    #quiz-summary-list li.correct,
+    #quiz-summary-list li.incorrect {
+        font-size: 16px;
+    }
+
+    /* 画面いっぱいに広げる調整 */
+    .screen {
+        height: 100vh;
+        padding: 5px;
+    }
+
+    #studying-words {
+        padding: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .screen {
+        padding: 15px;
+    }
+
+    h1, h2 {
+        font-size: 1.8em;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    #typing-practice #korean-word {
+        font-size: 28px;
+    }
+
+    #typing-practice #japanese-translation {
+        font-size: 18px;
+    }
+
+    #typing-practice input {
+        max-width: 350px;
+        font-size: 14px;
+    }
+
+    #learning-mode p {
+        font-size: 16px;
+    }
+
+    #studying-list li {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    #studying-list li button {
+        padding: 2px 4px;
+        font-size: 8px;
+    }
+
+    #quiz-summary-list li {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    #quiz-summary-list li.correct,
+    #quiz-summary-list li.incorrect {
+        font-size: 14px;
+    }
+
+    /* 画面いっぱいに広げる調整 */
+    .screen {
+        height: 100vh;
+        padding: 0;
+    }
+
+    #studying-words {
+        padding: 0;
+    }
 }
