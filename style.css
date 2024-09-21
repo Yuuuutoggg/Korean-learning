@@ -158,40 +158,30 @@ h1, h2 {
 
 /* 勉強中の単語確認画面 */
 #studying-words {
-    padding: 20px;
-    max-height: 85vh;
-    overflow-y: auto;
-    background-color: white;
+    background-color: #FFF5E5;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 85vh;
+    overflow: hidden;
 }
 
 #studying-list {
-    width: 100%;
-    padding: 0;
     list-style: none;
+    padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    overflow-y: auto;
+    flex: 1;
 }
 
+
 #studying-list li {
-    width: 100%;
-    max-width: 600px;
-    font-size: 20px;
-    padding: 15px;
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    padding: 15px;
+    margin: 10px;
     text-align: left;
-    position: relative;
 }
 
 #studying-list li:last-child {
@@ -199,19 +189,22 @@ h1, h2 {
 }
 
 #studying-list li p {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 20px;
+    margin: 5px 0;
+    font-size: 18px;
 }
 
 #studying-list li button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
     background-color: #dc3545;
+    color: white;
     padding: 6px 12px;
     font-size: 14px;
+    border: none;
     border-radius: 3px;
+    cursor: pointer;
+}
+
+#studying-list li button:hover {
+    background-color: #c82333;
 }
 
 /* クイズ画面のスタイル */
@@ -1056,7 +1049,126 @@ body.dark-mode #quiz-summary-list li {
     }
 }
 
+/* 間違えた単語一覧画面のスタイル */
+#incorrect-words-screen {
+    background-color: #FFF5E5;
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+    overflow: hidden;
+}
+
+#incorrect-words-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    overflow-y: auto;
+    flex: 1;
+}
+
+#incorrect-words-list li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+#incorrect-words-list li p {
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+#incorrect-words-list li button {
+    background-color: #dc3545;
+    color: white;
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#incorrect-words-list li button:hover {
+    background-color: #c82333;
+}
+
+/* ダークモード対応 */
+body.dark-mode #incorrect-words-screen {
+    background-color: #333300;
+}
+
+body.dark-mode #incorrect-words-list li {
+    background-color: #2c2c2c;
+    color: #dcdcdc;
+}
+
+body.dark-mode #incorrect-words-list li button {
+    background-color: #bd2130;
+}
+
+body.dark-mode #incorrect-words-list li button:hover {
+    background-color: #a71d2a;
+}
+
+
 /* Center contents vertically in all screens except the quiz summary screen */
 .screen:not(#quiz-summary) {
     justify-content: center;
+}
+
+/* レベル選択画面（タイムアタックモード用）のスタイル */
+
+#timeattack-level-selection {
+    background-color: #ffe4e1; /* 優しいピンク色の背景 */
+    color: #333;
+}
+
+#timeattack-level-selection h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#timeattack-level-selection button {
+    background-color: #ffb6c1; /* ライトピンクのボタン */
+    color: #fff;
+    padding: 12px 24px;
+    margin: 10px 5px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px; /* ボタンを丸みのある形に */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#timeattack-level-selection button:hover {
+    background-color: #ff91a4; /* ホバー時に少し濃いピンクに */
+}
+
+#timeattack-level-selection button:active {
+    background-color: #ff7a8a; /* クリック時にさらに濃いピンクに */
+}
+
+#timeattack-level-selection button i {
+    margin-right: 8px;
+}
+
+/* ダークモード対応 */
+body.dark-mode #timeattack-level-selection {
+    background-color: #2c2c2c;
+    color: #dcdcdc;
+}
+
+body.dark-mode #timeattack-level-selection button {
+    background-color: #ff6f91;
+}
+
+body.dark-mode #timeattack-level-selection button:hover {
+    background-color: #ff537a;
+}
+
+body.dark-mode #timeattack-level-selection button:active {
+    background-color: #ff3663;
 }
