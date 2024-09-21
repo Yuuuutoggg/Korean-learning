@@ -1,6 +1,6 @@
 // グローバル変数の宣言
 let selectedMode = ''; // 'practice', 'learning', 'quiz'
-let selectedPracticeMode = ''; // 'timeattack', 'partofspeech'
+let selectedPracticeMode = ''; // 'timeattack', 'partofspeech', 'review'
 let selectedPartOfSpeech = ''; // 'verbs', 'adjectives', etc.
 let selectedLevel = ''; // 'beginner', 'intermediate', 'advanced'
 
@@ -19,10 +19,14 @@ let currentQuizQuestionIndex = 0;
 let quizScore = 0;
 let userAnswers = [];
 
+// 間違えた単語のリストを保存するための変数
+let incorrectWords = JSON.parse(localStorage.getItem('incorrectWords')) || [];
+
 // DOM要素の取得
 const modeSelection = document.getElementById('mode-selection');
 const practiceModeSelection = document.getElementById('practice-mode-selection');
 const koreanKeyboardWarning = document.getElementById('korean-keyboard-warning');
+const timeattackLevelSelection = document.getElementById('timeattack-level-selection');
 const levelSelection = document.getElementById('level-selection');
 const partOfSpeechSelection = document.getElementById('part-of-speech-selection');
 const difficultySelection = document.getElementById('difficulty-selection');
@@ -55,6 +59,9 @@ const quizFeedbackElement = document.getElementById('quiz-feedback');
 const quizSummary = document.getElementById('quiz-summary');
 const quizSummaryList = document.getElementById('quiz-summary-list');
 const quizFinalScoreElement = document.getElementById('quiz-final-score');
+
+const incorrectWordsScreen = document.getElementById('incorrect-words-screen');
+const incorrectWordsListElement = document.getElementById('incorrect-words-list');
 
 // ユーティリティ関数
 function showElement(element) {
@@ -99,16 +106,21 @@ function selectPracticeMode(practiceMode) {
 // タイムアタックモードの韓国語キーボード警告を確認
 function acknowledgeKoreanKeyboard() {
     hideElement(koreanKeyboardWarning);
-    showElement(levelSelection);
+    showElement(timeattackLevelSelection);
 }
 
 // レベル選択関数（practice または quiz モード用）
 function selectLevel(level) {
     selectedLevel = level;
-    hideElement(levelSelection);
     if (selectedMode === 'practice') {
+        if (selectedPracticeMode === 'timeattack') {
+            hideElement(timeattackLevelSelection);
+        } else {
+            hideElement(levelSelection);
+        }
         startTypingPractice();
     } else if (selectedMode === 'quiz') {
+        hideElement(levelSelection);
         startQuiz();
     }
 }
@@ -183,7 +195,11 @@ function startTypingPractice() {
         hideElement(timerElement);
     }
 
-    loadWords();
+    if (selectedPracticeMode === 'review') {
+        showNextWordReview();
+    } else {
+        loadWords();
+    }
 }
 
 // 単語読み込み関数
@@ -295,7 +311,11 @@ function showNextWord() {
 // 入力チェック関数
 userInputElement.addEventListener('keyup', function(event) {
     if (event.key === 'Enter') {
-        checkInput();
+        if (selectedPracticeMode === 'review') {
+            checkInputReview();
+        } else {
+            checkInput();
+        }
     }
 });
 
@@ -372,6 +392,9 @@ function retryGame() {
         updateTimer();
         startTimer();
         loadWords();
+    } else if (selectedPracticeMode === 'review') {
+        currentWordIndex = 0;
+        showNextWordReview();
     } else {
         loadWords();
     }
@@ -381,7 +404,7 @@ function retryGame() {
 function goToLevelSelection() {
     hideElement(scoreScreen);
     if (selectedPracticeMode === 'timeattack') {
-        showElement(levelSelection);
+        showElement(timeattackLevelSelection);
     } else if (selectedPracticeMode === 'partofspeech') {
         showElement(difficultySelection);
     }
@@ -630,6 +653,17 @@ function handleQuizChoice(selectedIndex) {
         isCorrect: isCorrect
     });
 
+    if (!isCorrect) {
+        // 間違えた単語を保存
+        if (!incorrectWords.some(word => word.korean === question.korean)) {
+            incorrectWords.push({
+                korean: question.korean,
+                japanese: question.correct
+            });
+            localStorage.setItem('incorrectWords', JSON.stringify(incorrectWords));
+        }
+    }
+
     if (isCorrect) {
         quizScore++;
     }
@@ -674,4 +708,141 @@ function populateQuizSummary() {
 function retryQuiz() {
     hideElement(quizSummary);
     startQuiz();
+}
+
+// 間違えた単語の一覧を表示する関数
+function viewIncorrectWords() {
+    hideElement(quizSummary);
+    showElement(incorrectWordsScreen);
+    displayIncorrectWords();
+}
+
+// 間違えた単語の一覧を表示する関数（レベル選択画面から）
+function viewIncorrectWordsFromLevelSelection() {
+    hideElement(levelSelection);
+    showElement(incorrectWordsScreen);
+    displayIncorrectWords();
+}
+
+// 間違えた単語のリストを表示する関数
+function displayIncorrectWords() {
+    incorrectWordsListElement.innerHTML = '';
+    if (incorrectWords.length === 0) {
+        incorrectWordsListElement.innerHTML = '<li>間違えた単語はありません。</li>';
+        return;
+    }
+    incorrectWords.forEach((word, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <p>韓国語: ${word.korean}</p>
+            <p>日本語訳: ${word.japanese}</p>
+            <button onclick="removeFromIncorrectWords(${index})">削除</button>
+        `;
+        incorrectWordsListElement.appendChild(li);
+    });
+}
+
+// 間違えた単語リストから単語を削除する関数
+function removeFromIncorrectWords(index) {
+    incorrectWords.splice(index, 1);
+    localStorage.setItem('incorrectWords', JSON.stringify(incorrectWords));
+    displayIncorrectWords();
+}
+
+// 間違えた単語一覧画面を閉じる関数
+function closeIncorrectWordsScreen() {
+    hideElement(incorrectWordsScreen);
+    // 呼び出し元に応じて戻り先を決定
+    if (quizSummary && quizSummary.style.display === 'flex') {
+        showElement(quizSummary);
+    } else if (levelSelection && levelSelection.style.display === 'flex') {
+        showElement(levelSelection);
+    } else {
+        showElement(modeSelection);
+    }
+}
+
+// 復習モードを開始する関数
+function startReviewMode() {
+    if (incorrectWords.length === 0) {
+        alert('間違えた単語はありません。');
+        return;
+    }
+    hideElement(quizSummary);
+    selectedMode = 'quiz';
+    quizQuestions = [];
+    quizScore = 0;
+    currentQuizQuestionIndex = 0;
+    userAnswers = [];
+    loadReviewQuizQuestions();
+}
+
+// レベル選択画面から復習モードを開始する関数
+function startReviewModeFromLevelSelection() {
+    if (incorrectWords.length === 0) {
+        alert('間違えた単語はありません。');
+        return;
+    }
+    hideElement(levelSelection);
+    selectedMode = 'quiz';
+    quizQuestions = [];
+    quizScore = 0;
+    currentQuizQuestionIndex = 0;
+    userAnswers = [];
+    loadReviewQuizQuestions();
+}
+
+// 復習モード用のクイズ質問を読み込む関数
+function loadReviewQuizQuestions() {
+    if (incorrectWords.length === 0) {
+        alert('復習する単語がありません。');
+        resetApp();
+        return;
+    }
+
+    loadAllWords().then(allWords => {
+        incorrectWords.forEach(word => {
+            const wrongChoices = getWrongChoicesForReview(word, allWords, 3);
+            const choices = shuffleArray([word.japanese, ...wrongChoices]);
+            quizQuestions.push({
+                korean: word.korean,
+                correct: word.japanese,
+                choices: choices
+            });
+        });
+
+        currentQuizQuestionIndex = 0;
+        showQuizQuestion();
+    }).catch(error => {
+        console.error('単語データの読み込みに失敗しました:', error);
+        alert('単語データの読み込みに失敗しました。');
+        resetApp();
+    });
+}
+
+// 復習モード用に全ての単語を読み込む関数
+function loadAllWords() {
+    let allWords = [];
+    const levels = ['beginner', 'intermediate', 'advanced'];
+    const promises = levels.map(level => {
+        return fetch(getFileName(level))
+            .then(response => response.json())
+            .then(data => {
+                for (let pos in data[level]) {
+                    if (Array.isArray(data[level][pos])) {
+                        allWords = allWords.concat(data[level][pos]);
+                    }
+                }
+            });
+    });
+
+    return Promise.all(promises).then(() => allWords);
+}
+
+// 復習モード用の間違い選択肢を取得する関数
+function getWrongChoicesForReview(correctWord, allWords, count) {
+    const wrongWords = allWords.filter(word => word.japanese !== correctWord.japanese);
+    shuffleArray(wrongWords);
+    const choices = wrongWords.slice(0, count).map(word => word.japanese);
+    return choices;
 }
