@@ -46,9 +46,9 @@
         <button onclick="acknowledgeKoreanKeyboard()">確認しました</button>
     </div>
 
-    <!-- レベル選択画面（タイムアタックモード用） -->
-    <div id="level-selection" class="screen fade-in" style="display: none;">
-        <h2>レベルを選択してください</h2>
+    <!-- 新しいレベル選択画面（タイムアタックモード用） -->
+    <div id="timeattack-level-selection" class="screen fade-in" style="display: none;">
+        <h2>レベルを選択してください（タイムアタック）</h2>
         <button onclick="selectLevel('beginner')">初級</button>
         <button onclick="selectLevel('intermediate')">中級</button>
         <button onclick="selectLevel('advanced')">上級</button>
@@ -122,6 +122,19 @@
         <button onclick="confirmReturnToTitle()"><i class="fas fa-home"></i> タイトルに戻る</button>
     </div>
 
+    <!-- 四択クイズ用レベル選択画面 -->
+    <div id="level-selection" class="screen fade-in" style="display: none;">
+        <h2>レベルを選択してください</h2>
+        <button onclick="selectLevel('beginner')">初級</button>
+        <button onclick="selectLevel('intermediate')">中級</button>
+        <button onclick="selectLevel('advanced')">上級</button>
+        <!-- 復習モード開始ボタン -->
+        <button onclick="startReviewModeFromLevelSelection()"><i class="fas fa-redo-alt"></i> 復習モードを開始</button>
+        <!-- 間違えた単語一覧表示ボタン -->
+        <button onclick="viewIncorrectWordsFromLevelSelection()"><i class="fas fa-list"></i> 間違えた単語一覧</button>
+        <button onclick="confirmReturnToTitle()"><i class="fas fa-home"></i> 戻る</button>
+    </div>
+
     <!-- 四択クイズ画面 -->
     <div id="quiz-screen" class="screen fade-in" style="display: none;">
         <h2>四択クイズ</h2>
@@ -143,7 +156,18 @@
         <ul id="quiz-summary-list"></ul>
         <p id="quiz-final-score">最終スコア: 0 / 0</p>
         <button onclick="retryQuiz()">もう一度クイズをする</button>
+        <!-- 復習モード開始ボタン -->
+        <button onclick="startReviewMode()"><i class="fas fa-redo-alt"></i> 復習モードを開始</button>
+        <!-- 間違えた単語一覧表示ボタン -->
+        <button onclick="viewIncorrectWords()"><i class="fas fa-list"></i> 間違えた単語一覧</button>
         <button onclick="confirmReturnToTitle()"><i class="fas fa-home"></i> タイトルに戻る</button>
+    </div>
+
+    <!-- 間違えた単語一覧画面 -->
+    <div id="incorrect-words-screen" class="screen fade-in" style="display: none;">
+        <h2>間違えた単語一覧</h2>
+        <ul id="incorrect-words-list"></ul>
+        <button onclick="closeIncorrectWordsScreen()"><i class="fas fa-times"></i> 閉じる</button>
     </div>
 
     <!-- JavaScriptファイルへのリンク -->
