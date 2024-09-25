@@ -1,0 +1,409 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('haikei.png'); /* Use the background image */
+    background-size: cover; /* Make sure the image covers the whole page */
+    background-position: center center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent repeating of the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 18px;
+    overflow-x: hidden;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* 横スクロールを防ぐ */
+}
+
+/* タイトルのスタイル */
+h1, h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+/* スクリーン表示要素の基本スタイル */
+.screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+/* 表示中のスクリーン */
+.screen.active {
+    display: flex;
+}
+
+/* ボタンの基本スタイル */
+button {
+    padding: 12px 24px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    color: black; /* 文字色を白に固定 */
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+    text-shadow: none; /* 影を無効 */
+    -webkit-text-stroke: 0; /* 縁取りを無効 */
+}
+/* ボタンのホバー効果 */
+button:hover {
+    transform: scale(1.05);
+    filter: brightness(85%);
+}
+
+/* タイピング練習用のスタイル */
+#typing-practice #korean-word {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+#typing-practice #japanese-translation {
+    font-size: 24px;
+    margin: 10px 0 20px 0;
+}
+
+#typing-practice input {
+    width: 100%;
+    max-width: 600px;
+    padding: 14px;
+    font-size: 20px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* 学習モード用のスタイル */
+#learning-mode p {
+    margin: 10px 0;
+    font-size: 22px;
+}
+
+#learning-mode #learning-korean-word,
+#learning-mode #learning-example-korean {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* 勉強中の単語確認画面 */
+#studying-words {
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+    overflow: hidden;
+}
+
+#studying-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    overflow-y: auto;
+    flex: 1;
+}
+
+#studying-list li {
+    background-color: #f9f9f9;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px;
+    text-align: left;
+}
+
+#studying-list li p {
+    color: #333;
+}
+
+/* タイピング入力エリア（ユーザー作成モード） */
+#add-word-screen input, #edit-word-screen input {
+    width: 100%;
+    max-width: 600px;
+    padding: 14px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* クイズ画面のスタイル */
+#quiz-screen #quiz-question {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#quiz-screen #quiz-feedback {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#quiz-screen #quiz-choices {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#quiz-screen #quiz-choices button {
+    width: 100%;
+    max-width: 400px;
+    margin: 8px 0;
+}
+
+/* モーダルのスタイル */
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    font-size: 1.2em;
+}
+
+/* ボタンのフォーカススタイルを削除 */
+button:focus {
+    outline: none;
+}
+
+/* アニメーション効果 */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* レスポンシブデザインの調整 */
+@media (max-width: 1024px) {
+    .screen {
+        width: 95%;
+        max-width: 700px;
+    }
+
+    h1, h2 {
+        font-size: 2.2em;
+    }
+
+    button {
+        font-size: 18px;
+        padding: 14px 28px;
+    }
+
+    #typing-practice #korean-word {
+        font-size: 34px;
+    }
+
+    #typing-practice #japanese-translation {
+        font-size: 22px;
+    }
+
+    #typing-practice input {
+        max-width: 450px;
+        font-size: 18px;
+    }
+
+    #learning-mode p {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .screen {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    h1, h2 {
+        font-size: 2em;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 12px 24px;
+    }
+
+    #typing-practice #korean-word {
+        font-size: 32px;
+    }
+
+    #typing-practice #japanese-translation {
+        font-size: 20px;
+    }
+
+    #typing-practice input {
+        max-width: 400px;
+        font-size: 16px;
+    }
+
+    #learning-mode p {
+        font-size: 18px;
+    }
+
+    #add-word-screen input {
+        max-width: 400px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .screen {
+        padding: 15px;
+    }
+
+    h1, h2 {
+        font-size: 1.8em;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    #typing-practice #korean-word {
+        font-size: 28px;
+    }
+
+    #typing-practice #japanese-translation {
+        font-size: 18px;
+    }
+
+    #typing-practice input {
+        max-width: 350px;
+        font-size: 14px;
+    }
+
+    #learning-mode p {
+        font-size: 16px;
+    }
+
+    #add-word-screen input {
+        max-width: 350px;
+        font-size: 14px;
+    }
+}
+/* 通常のクイズモードの選択肢ボタン */
+.quiz-choice-button {
+    width: 100%;
+    max-width: 400px;
+    margin: 8px 0;
+    padding: 12px;
+    font-size: 18px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+}
+
+/* ユーザー作成クイズモードの選択肢ボタン */
+.user-quiz-choice-button {
+    width: 100%;
+    max-width: 400px;
+    margin: 8px 0;
+    padding: 12px;
+    font-size: 18px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+}
+
+/* ホバー時のエフェクトを統一 */
+.quiz-choice-button:hover, 
+.user-quiz-choice-button:hover {
+    transform: scale(1.05);
+    filter: brightness(85%);
+}
+
+/* ボタンのフォーカスを外した時の効果を統一 */
+.quiz-choice-button:focus, 
+.user-quiz-choice-button:focus {
+    outline: none;
+}
+
+/* 単語リストのスタイルを統一 */
+.word-list-item {
+    background-color: #f9f9f9;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px;
+    text-align: left;
+}
+
+.word-list-item p {
+    color: #333;
+    margin: 5px 0;
+}
+.word-list-screen {
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+    overflow: hidden; /* 全体がスクロールしないように */
+}
+
+.word-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    overflow-y: auto; /* コンテンツのみスクロール */
+    flex: 1;
+}
+
+.word-list-item {
+    background-color: #f9f9f9;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px;
+    text-align: left;
+}
+
+.word-list-item p {
+    color: #333;
+    margin: 5px 0;
+}
